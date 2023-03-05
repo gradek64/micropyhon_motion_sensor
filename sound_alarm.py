@@ -1,4 +1,5 @@
 from time import sleep
+import testing_intervals
 
 
 class Colors:
@@ -15,38 +16,24 @@ class Colors:
 
 beenHighTime = 0
 beenLowDelayCheck = 0
-delayCheck = 6
-ActiveInterval = 10
 activeCheckTimes = 0
-# 3 intervals check to make 30s all together
-intervalsArray = [ActiveInterval, ActiveInterval, ActiveInterval]
-timeToSetAlarm = 30
-alarmIsONFor = 10
 
+
+# delay check has to be at least 5 the value that sensor rest to Low
+delayCheck = 6
+
+# any number in seconds for single check interval
+activeIntervalS1 = 7
+# 3 intervals check to make 30s all together
+intervalsArrayS1 = [activeIntervalS1 + 4, activeIntervalS1, activeIntervalS1]
+timeToSetAlarm = len(intervalsArrayS1) * activeIntervalS1
+alarmIsOnFor = 10
+
+# testing remove for actual Pin value once connected
+testingIncrement = 0
 # testing remove for actual Pin value once connected
 class Pin:
     HIGH = True
-
-
-testingIncrement = 0
-onOffVariationsTest = [
-    [True] * 15,
-    [False] * 8,
-    [True] * 20,
-    [False] * 3,
-    [True] * 10,
-    [False] * 3,
-    [True] * 5,
-    [False] * 3,
-    [True] * 14,
-    [False] * 3,
-    [True] * 10,
-    [False] * 3,
-    [True] * 4,
-    [False] * 3,
-]
-flat_onOffVariationsTest = sum(onOffVariationsTest, [])
-# testing remove for actual Pin value once connected
 
 
 def runTimingAlarm():
@@ -54,11 +41,12 @@ def runTimingAlarm():
     global firstLongState
     global beenLowDelayCheck
     global activeCheckTimes
-    global testingIncrement
+    global testing_intervals
     global timeToSetAlarm
+    global testingIncrement
 
     # testing remove for actual Pin value once connected
-    Pin.HIGH = flat_onOffVariationsTest[testingIncrement]
+    Pin.HIGH = testing_intervals.flat_onOffVariationsTestS1[testingIncrement]
     # testing remove for actual Pin value once connected
 
     if Pin.HIGH == True:
@@ -70,8 +58,8 @@ def runTimingAlarm():
         beenHighTime = beenHighTime + 1
         print(f"{Colors.WARNING} Pin been High for: {beenHighTime}{Colors.ENDC}")
 
-        # Pin hits check points secends in intervalsArray
-        if beenHighTime == intervalsArray[activeCheckTimes]:
+        # Pin hits check points secends in intervalsArrayS1
+        if beenHighTime == intervalsArrayS1[activeCheckTimes]:
             activeCheckTimes = activeCheckTimes + 1
             # reset beenHighTime for easier calculation based on activeCheckTimes
             beenHighTime = 0
@@ -84,7 +72,7 @@ def runTimingAlarm():
                 # set relay pin on for alarm and light
                 # alarm is on for 10s
                 # maybe check how many times alarm got off and decrease time for next check ?
-                sleep(alarmIsONFor)
+                sleep(alarmIsOnFor)
                 # reset everything but activeCheckTimes to 1 to set alarm now to 20s
                 beenHighTime = 0
                 activeCheckTimes = 1
