@@ -31,14 +31,14 @@ class Pin:
 testingIncrement = 0
 onOffVariationsTest = [
     [True] * 15,
-    [False] * 4,
+    [False] * 8,
     [True] * 20,
     [False] * 3,
     [True] * 10,
     [False] * 3,
     [True] * 5,
     [False] * 3,
-    [True] * 20,
+    [True] * 4,
     [False] * 3,
 ]
 flat_onOffVariationsTest = sum(onOffVariationsTest, [])
@@ -64,7 +64,7 @@ def runTimingAlarm():
         # testing
 
         beenHighTime = beenHighTime + 1
-        print(f"{Colors.WARNING} beenHighTime for: {beenHighTime}{Colors.ENDC}")
+        print(f"{Colors.WARNING} Pin been High for: {beenHighTime}{Colors.ENDC}")
 
         # Pin hits check points secends in intervalsArray
         if beenHighTime == intervalsArray[activeCheckTimes]:
@@ -97,13 +97,15 @@ def runTimingAlarm():
         # someone already been there for at lest 10s
         if activeCheckTimes > 0:
             beenLowDelayCheck = beenLowDelayCheck + 1
-            print(f"{Colors.OKGREEN} beenLowTime for: {beenLowDelayCheck}{Colors.ENDC}")
+            print(f"{Colors.OKGREEN} been Low for: {beenLowDelayCheck}{Colors.ENDC}")
             if beenLowDelayCheck > delayCheck:
                 beenLowDelayCheck = 0
                 activeCheckTimes = 0
-                print(f"{Colors.OKCYAN} delay has passed of more than {delayCheck}{Colors.ENDC}")
+                print(
+                    f"{Colors.OKCYAN} delay has passed of more than {delayCheck}s RESET --- activeCheckTimes: {activeCheckTimes} -- {Colors.ENDC}"
+                )
         else:
-            print(f"{Colors.OKGREEN} has been OFF: {testingIncrement} second {Colors.ENDC}")
+            print(f"{Colors.OKGREEN} Pin has been LOW--- activeCheckTimes: {activeCheckTimes} -- {Colors.ENDC}")
 
         runTimingAlarm()
 
