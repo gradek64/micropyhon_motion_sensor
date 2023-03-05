@@ -38,6 +38,10 @@ onOffVariationsTest = [
     [False] * 3,
     [True] * 5,
     [False] * 3,
+    [True] * 14,
+    [False] * 3,
+    [True] * 10,
+    [False] * 3,
     [True] * 4,
     [False] * 3,
 ]
