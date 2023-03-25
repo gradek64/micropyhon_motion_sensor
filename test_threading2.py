@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from glob import glob
 import threading
 import time
 
@@ -16,7 +17,9 @@ def test():
 class Job(threading.Thread):
     def __init__(self, *args, **kwargs):
         super(Job, self).__init__(*args, **kwargs)
-        print(*args)
+        for value in kwargs.items():
+            globals()["my_var"] = value
+        # threading.Thread(target=test).start()  # <- note extra ','
         self.__flag = threading.Event()  # The flag used to pause the thread
         self.__flag.set()  # Set to True
         self.__running = threading.Event()  # Used to stop the thread identification
@@ -25,7 +28,8 @@ class Job(threading.Thread):
     def run(self):
         while self.__running.is_set():
             self.__flag.wait()  # return immediately when it is True, block until the internal flag is True when it is False
-            test()
+            print(globals()["my_var"])
+            globals()["my_var"].method()
 
     def pause(self):
         print("pauzed")
@@ -43,11 +47,11 @@ class Job(threading.Thread):
 
 #
 # https://topic.alibabacloud.com/a/python-thread-pause-resume-exit-detail-and-example-_python_1_29_20095165.html
-a = Job()
+a = Job(kwargs={"method": test})
 a.start()
 
-b = Job()
-b.start()
+# b = Job(target=test)
+# b.start()
 
 
 # time.sleep(3)
@@ -58,3 +62,22 @@ b.start()
 # a.pause()
 # time.sleep(2)
 # a.stop()
+
+
+class Employee:
+    "Common base class for all employees"
+    empCount = 0
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+        Employee.empCount += 1
+
+    def displayCount(self):
+        print("Total Employee %d" % Employee.empCount)
+
+    def displayEmployee(self):
+        print("Name : ", self.name, ", Salary: ", self.salary)
+
+
+emp1 = Employee("Zara", 2000)

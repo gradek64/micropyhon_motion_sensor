@@ -1,6 +1,6 @@
 # pin 1 short
 onOffVariationsTestPin1 = [
-    [True] * 5,
+    [True] * 30,
     [False] * 8,
     [True] * 3,
     [False] * 3,

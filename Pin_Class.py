@@ -20,20 +20,21 @@ class Colors:
 
 class Pin:
     # self means attribute
-    def __init__(self, pinNumber):
+    def __init__(self, pinNumber, activeIntervalCheck, activeSeriesNum):
         self.pinNumber = pinNumber
         self.beenHighTime = 0
         self.HIGH = False
         self.activeCheckTimes = 0
         self.beenLowDelayCheck = 0
         self.alarmIsOnFor = 10
-        # delay check has to be at least 5 the value that sensor rest to Low
+        # delay check has to be at least 5-6 the value that sensor rest to Low
         self.delayCheck = 6
         # any number in seconds for single check interval
-        self.activeInterval = 10
-        # 3 intervals check to make 30s all together
-        self.intervalsArray = [self.activeInterval, self.activeInterval, self.activeInterval]
-        # self.timeToSetAlarm = len(self.activeInterval) * self.activeInterval
+        self.activeInterval = activeIntervalCheck
+        self.intervalsArray = []
+        # x intervals check to make 30s all together for example 3 x activeIntervalCheck
+        for x in range(activeSeriesNum):
+            self.intervalsArray.append(self.activeInterval)
 
         # testing remove for actual Pin value once connected
         self.testingIncrement = 0
@@ -60,15 +61,15 @@ class Pin:
                 self.beenLowDelayCheck = 0
                 print(f"{Colors.OKCYAN} Pin {self.pinNumber}  activeCheckTimes :---: {self.activeCheckTimes} :----:")
 
-                if self.activeCheckTimes == 3:
+                if self.activeCheckTimes == len(self.intervalsArray):
                     print(f"{Colors.FAIL}!!! Pin {self.pinNumber} ALARM SET !!!!{Colors.ENDC}")
                     # set relay pin on for alarm and light
                     # alarm is on for 10s
                     # maybe check how many times alarm got off and decrease time for next check ?
                     sleep(self.alarmIsOnFor)
-                    # reset everything but activeCheckTimes to 1 to set alarm now to 20s
+                    # reset everything
                     self.beenHighTime = 0
-                    self.activeCheckTimes = 1
+                    self.activeCheckTimes = 0
 
             self.runTimingAlarm()
         else:
