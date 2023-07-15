@@ -1,4 +1,8 @@
 from time import sleep
+from pydub import AudioSegment
+from pydub.playback import play
+
+
 # from testing_intervals import TestData
 
 # testing remove for actual Pin value once connected
@@ -43,6 +47,7 @@ class Sensor:
         # any number in seconds for single check interval
         self.activeInterval = activeIntervalCheck
         self.intervalsArray = []
+        self.activeSeriesNum = activeSeriesNum
         # x intervals check to make 30s all together for example 3 x activeIntervalCheck
         for x in range(activeSeriesNum):
             self.intervalsArray.append(self.activeInterval)
@@ -50,6 +55,17 @@ class Sensor:
         # testing remove for actual Pin value once connected
         # self.testingIncrement = 0
         # testing remove for actual Pin value once connected
+        
+        #get ready sounds
+        self.dog_barking = AudioSegment.from_mp3('sounds/dog-barking.mp3')
+        self.me_talking = AudioSegment.from_mp3('sounds/me_talking.mp3')
+        
+        #notify with audio that system is ready
+        audio_notify = AudioSegment.from_mp3('sounds/ready_now.mp3')
+        play(audio_notify)
+        if self.debug:
+            print('audio notification should have played')
+        
     def runTimingAlarm(self):
         self.HIGH = self.sensorPin.readPinValue()
         ledOff = not self.detectionLed.readPinValue()
@@ -77,11 +93,23 @@ class Sensor:
                 self.beenLowDelayCheck = 0
                 if self.debug:
                     print(f"{Colors.OKCYAN} Pin {self.sensorPin.readPinName()}  activeCheckTimes :---: {self.activeCheckTimes} :----:")
+                
+                # play warning audio when all intervals are greater than 1
+                if self.activeSeriesNum !=1 and self.activeCheckTimes == len(self.intervalsArray) -1:
+                    if self.debug:
+                       print('dog barking warning')
+                     
+                    #start warning audio
+                    play(self.dog_barking)
 
                 if self.activeCheckTimes == len(self.intervalsArray):
                     if self.debug:
                         print(f"{Colors.FAIL}!!! Pin {self.sensorPin.readPinName()} ALARM SET !!!!{Colors.ENDC}")
-                    # set relay pin on for alarm and light
+                        print(f"{Colors.FAIL}!!! me shouting")
+                     
+                    #start warning audio
+                    play(self.me_talking)
+                    # set relay pin on for alarm
                     # alarm is on for 10s
                     # maybe check how many times alarm got off and decrease time for next check ?
                     sleep(self.alarmIsOnFor)
