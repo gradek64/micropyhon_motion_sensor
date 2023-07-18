@@ -1,0 +1,20 @@
+
+1. Open .bashrc in vim 
+
+		vim .bashrc
+2. Add this line below 
+
+	#running below on boot with bash
+	
+	cd path/to/your/python/script && python file.py
+
+3. This will run every time you start a bash window and on boot 
+
+4. To stop running this python file you can:
+
+	4a. Terminate it for one session
+		
+		ps aux => list the running process
+		kill -9 12333 => 12333 is the process number (PID) from the list
+
+5. To remove completely edit the .bashrc again 

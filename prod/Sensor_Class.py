@@ -107,12 +107,23 @@ class Sensor:
                         print(f"{Colors.FAIL}!!! Pin {self.sensorPin.readPinName()} ALARM SET !!!!{Colors.ENDC}")
                         print(f"{Colors.FAIL}!!! me shouting")
                      
-                    #start warning audio
-                    play(self.me_talking)
-                    # set relay pin on for alarm
+                    #start warning audio not sure yet
+                    #play(self.me_talking)
+                    
+                    # set relay pin on for alarm if not already on
+                    relayOff = not self.relayOutput1.readPinValue()
+                    if relayOff:
+                        if self.debug:
+                            print(f"{Colors.FAIL}!!! ===> relay set ON")
+                        self.relayOutput1.writeOutPin('HIGH')
+                    
                     # alarm is on for 10s
                     # maybe check how many times alarm got off and decrease time for next check ?
                     sleep(self.alarmIsOnFor)
+                    #turn off the relay
+                    if self.debug:
+                        print(f"{Colors.FAIL}!!! ===> relay set OFF")
+                    self.relayOutput1.writeOutPin('LOW')
                     # reset everything
                     self.beenHighTime = 0
                     self.activeCheckTimes = 0
