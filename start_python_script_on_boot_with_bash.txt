@@ -14,7 +14,7 @@
 
 	4a. Terminate it for one session
 		
-		ps aux => list the running process
+		ps aux | grep main_pro => list the running process for you app
 		kill -9 12333 => 12333 is the process number (PID) from the list
 
 5. To remove completely edit the .bashrc again 

@@ -1,6 +1,5 @@
 from time import sleep
-from pydub import AudioSegment
-from pydub.playback import play
+
 
 
 # from testing_intervals import TestData
@@ -26,19 +25,23 @@ class Sensor:
     # self means attribute
     def __init__(
         self,
+        id,
         sensorPin,
         detectionLed,
         relayOutput1,
         activeIntervalCheck,
         activeSeriesNum,
+        sounds,
         debug = False
         ):
+        self.id = id
         self.debug = debug
         self.sensorPin = sensorPin
         self.detectionLed = detectionLed
         self.relayOutput1 = relayOutput1
         self.beenHighTime = 0
         self.HIGH = False
+        self.sounds = sounds
         self.activeCheckTimes = 0
         self.beenLowDelayCheck = 0
         self.alarmIsOnFor = 10
@@ -57,12 +60,16 @@ class Sensor:
         # testing remove for actual Pin value once connected
         
         #get ready sounds
-        self.dog_barking = AudioSegment.from_mp3('sounds/dog-barking.mp3')
-        self.me_talking = AudioSegment.from_mp3('sounds/me_talking.mp3')
+        #self.dog_barking = AudioSegment.from_mp3('sounds/dog-barking.mp3')
+        #self.me_talking = AudioSegment.from_mp3('sounds/me_talking.mp3')
         
         #notify with audio that system is ready
-        audio_notify = AudioSegment.from_mp3('sounds/ready_now.mp3')
-        play(audio_notify)
+        #audio_notify = AudioSegment.from_mp3('sounds/ready_now.mp3')
+
+        #play(audio_notify) when second sensor is engaged
+        if self.id == 2:
+            self.sounds.playSound('notify_ready')
+
         if self.debug:
             print('audio notification should have played')
         
@@ -100,7 +107,7 @@ class Sensor:
                        print('dog barking warning')
                      
                     #start warning audio
-                    play(self.dog_barking)
+                    self.sounds.playSound('dog_barking')
 
                 if self.activeCheckTimes == len(self.intervalsArray):
                     if self.debug:
@@ -109,6 +116,7 @@ class Sensor:
                      
                     #start warning audio not sure yet
                     #play(self.me_talking)
+                    self.sounds.playSound('me_talking')
                     
                     # set relay pin on for alarm if not already on
                     relayOff = not self.relayOutput1.readPinValue()
