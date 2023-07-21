@@ -36,7 +36,7 @@ class Sensor:
         self.beenLowDelayCheck = 0
         self.alarmIsOnFor = 10
         # delay check has to be at least 5-6 the value that sensor reset to Low
-        self.delayCheck = 6
+        self.delayCheck = 10
         self.intervalsArray = intervalsArray
         
         #play(audio_notify) when second sensor is engaged
@@ -80,15 +80,16 @@ class Sensor:
                         
                         #start warning audio
                         self.sounds.playSound('dog_barking')
-                        self.sounds.playSound('let_me_sleep')
+                        self.sounds.playSound('video_recording')
 
                     if self.activeCheckTimes == len(self.intervalsArray):
                         if self.debug:
                             print(f"{Colors.FAIL}!!! Pin {self.sensorPin.readPinName()} ALARM SET !!!!{Colors.ENDC}")
                             print(f"{Colors.FAIL}!!! me shouting")
                         
-                        #start warning audio
-                        self.sounds.playSound('dog_barking')
+                        #start warning audio not sure it should start alarm 
+                        #cause the sound messes up with reset_delay value
+                        #self.sounds.playSound('dog_barking')
                         
                         # set relay pin on for alarm if not already on
                         relayOff = not self.relayOutput1.readPinValue()
