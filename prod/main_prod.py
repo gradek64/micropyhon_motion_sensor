@@ -18,8 +18,9 @@ back_sensor =  GPIO_Pin(24, 'Input', 'back_sensor')
 sounds = Sound()
 
 # Sensor(id, sensorPin, detection_led, relayOutput1, activeIntervalCheck, activeSeriesNum, soundClass, debug=false) 
+# experiment with how many seconds you need once installed
 sensor1 = Sensor(1, front_sensor, detection_led, relay_output_1, 10, 3, sounds, False)  # 10x3 series 30 seconds sound the alarm
-sensor2 = Sensor(2, back_sensor, detection_led, relay_output_1, 13, 1, sounds, False )  # 13x1 series 13 seconds sound the alarm
+sensor2 = Sensor(2, back_sensor, detection_led, relay_output_1, 9, 1, sounds, False )  # 9x1 series 9 seconds sound the alarm
 
 
 
