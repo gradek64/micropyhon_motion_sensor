@@ -135,7 +135,8 @@ class Sensor:
                     # reset everything
                     self.beenHighTime = 0
                     self.activeCheckTimes = 0
-
+                    
+            # run method in next second
             self.runTimingAlarm()
         else:
             sleep(1)
@@ -166,5 +167,5 @@ class Sensor:
                     print(
                     f"{Colors.OKGREEN} Pin {self.sensorPin.readPinName()} has been LOW--- activeCheckTimes: {self.activeCheckTimes} -- {Colors.ENDC}"
                     )
-        # run method in next second
-        self.runTimingAlarm()
+            # run method in next second
+            self.runTimingAlarm()
