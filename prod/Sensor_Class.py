@@ -93,9 +93,8 @@ class Sensor:
                             print(f"{Colors.FAIL}!!! Pin {self.sensorPin.readPinName()} ALARM SET !!!!{Colors.ENDC}")
                             print(f"{Colors.FAIL}!!! me shouting")
                         
-                        #start warning audio not sure yet
-                        #play(self.me_talking)
-                        self.sounds.playSound('me_talking')
+                        #start warning audio
+                        self.sounds.playSound('let_me_sleep')
                         
                         # set relay pin on for alarm if not already on
                         relayOff = not self.relayOutput1.readPinValue()
