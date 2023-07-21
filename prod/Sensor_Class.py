@@ -87,6 +87,7 @@ class Sensor:
                         
                         #start warning audio
                         self.sounds.playSound('dog_barking')
+                        self.sounds.playSound('let_me_sleep')
 
                     if self.activeCheckTimes == len(self.intervalsArray):
                         if self.debug:
@@ -94,7 +95,7 @@ class Sensor:
                             print(f"{Colors.FAIL}!!! me shouting")
                         
                         #start warning audio
-                        self.sounds.playSound('let_me_sleep')
+                        self.sounds.playSound('dog_barking')
                         
                         # set relay pin on for alarm if not already on
                         relayOff = not self.relayOutput1.readPinValue()
