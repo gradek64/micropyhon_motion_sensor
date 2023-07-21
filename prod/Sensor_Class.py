@@ -20,8 +20,7 @@ class Sensor:
         sensorPin,
         detectionLed,
         relayOutput1,
-        activeIntervalCheck,
-        activeSeriesNum,
+        intervalsArray,
         sounds,
         debug = False
         ):
@@ -38,13 +37,7 @@ class Sensor:
         self.alarmIsOnFor = 10
         # delay check has to be at least 5-6 the value that sensor reset to Low
         self.delayCheck = 6
-        # any number in seconds for single check interval
-        self.activeInterval = activeIntervalCheck
-        self.intervalsArray = []
-        self.activeSeriesNum = activeSeriesNum
-        # x intervals check to make 30s all together for example 3 x activeIntervalCheck
-        for x in range(activeSeriesNum):
-            self.intervalsArray.append(self.activeInterval)
+        self.intervalsArray = intervalsArray
         
         #play(audio_notify) when second sensor is engaged
         if self.id == 2:
@@ -80,8 +73,8 @@ class Sensor:
                     if self.debug:
                         print(f"{Colors.OKCYAN} Pin {self.sensorPin.readPinName()}  activeCheckTimes :---: {self.activeCheckTimes} :----:")
                     
-                    # play warning audio when all intervals are greater than 1
-                    if self.activeSeriesNum !=1 and self.activeCheckTimes == len(self.intervalsArray) -1:
+                    # play warning audio when the are more that one interval [4,5] but not [4]
+                    if len(self.intervalsArray) > 1 and self.activeCheckTimes == len(self.intervalsArray) -1:
                         if self.debug:
                             print('dog barking warning')
                         

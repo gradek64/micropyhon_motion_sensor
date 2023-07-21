@@ -1,11 +1,22 @@
 import threading
-from Pin_Class import Pin
+from Sensor_Class import Sensor
 
-# pin number, activeCheckInterval, how many in series
-pin1 = Pin(1, 10, 3)  # 10x3 series 30 seconds sound the alarm
-pin2 = Pin(2, 7, 1)  # 7x1 series 7 seconds sound the alarm
 
-timer1 = threading.Thread(target=pin1.runTimingAlarm)
+####### how it works ? #####
+
+# this intervalsArray [2,3,4] length makes number of interval 
+# the alarm will set when all intervals will pass 
+# and sum of all seconds [2,3,4] = 9s will pass
+# if there is a break of 6s between interval it will reset to 0
+# will needs 3 consecutive intervals and sum of intervalsArray of 9 seconds ([2,3,4] = 9s) to set the alarm
+
+########
+
+#pinNumber, arrayOfSeconds
+sensor1 = Sensor(1, [10,5,5]) 
+sensor2 = Sensor(2, [8,1])
+
+timer1 = threading.Thread(target=sensor1.runTimingAlarm)
 timer1.start()
-timer2 = threading.Thread(target=pin2.runTimingAlarm)
+timer2 = threading.Thread(target=sensor2.runTimingAlarm)
 timer2.start()
