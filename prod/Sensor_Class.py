@@ -34,7 +34,7 @@ class Sensor:
         self.sounds = sounds
         self.activeCheckTimes = 0
         self.beenLowDelayCheck = 0
-        self.alarmIsOnFor = 10
+        self.alarmIsOnFor = 30
         # delay check has to be at least 5-6 the value that sensor reset to Low
         self.delayCheck = 10
         self.intervalsArray = intervalsArray
@@ -80,7 +80,7 @@ class Sensor:
                         
                         #start warning audio
                         self.sounds.playSound('dog_barking')
-                        self.sounds.playSound('video_recording')
+                        #self.sounds.playSound('video_recording')
 
                     if self.activeCheckTimes == len(self.intervalsArray):
                         if self.debug:

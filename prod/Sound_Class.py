@@ -6,7 +6,7 @@ class Sound:
     def __init__(self):
         #get ready sounds
         self.notify_ready = AudioSegment.from_mp3('sounds/ready_now.mp3')
-        self.dog_barking = AudioSegment.from_mp3('sounds/dog-barking.mp3')
+        self.dog_barking = AudioSegment.from_mp3('sounds/dog-barking-loud.mp3')
         #self.let_me_sleep = AudioSegment.from_mp3('sounds/let_me_sleep.mp3')
         self.video_recording = AudioSegment.from_mp3('sounds/video_recording.mp3')
 

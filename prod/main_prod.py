@@ -31,8 +31,8 @@ sounds = Sound()
 # experiment with how many seconds you need once installed
 
 
-sensor1 = Sensor(1, front_sensor, detection_led, relay_output_1, [10,5, 5], sounds, False)  # 10x3 series 30 seconds sound the alarm in 3 intervals
-sensor2 = Sensor(2, back_sensor, detection_led, relay_output_1, [8, 2], sounds, False )  # 5x2 series 10 seconds sound the alarm in 2 intervals
+sensor1 = Sensor(1, front_sensor, detection_led, relay_output_1, [5,5,5], sounds, False)  # 10x3 series 30 seconds sound the alarm in 3 intervals
+sensor2 = Sensor(2, back_sensor, detection_led, relay_output_1, [3], sounds, False )  # 5x2 series 10 seconds sound the alarm in 2 intervals
 
 
 
