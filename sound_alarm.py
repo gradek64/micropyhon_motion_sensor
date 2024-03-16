@@ -1,6 +1,6 @@
 from time import sleep
 from testing_intervals import TestData
-
+from bluetooth import Bluetooth
 
 class Colors:
     HEADER = "\033[95m"
@@ -29,12 +29,14 @@ intervalsArrayS1 = [activeIntervalS1 + 4, activeIntervalS1, activeIntervalS1]
 timeToSetAlarm = len(intervalsArrayS1) * activeIntervalS1
 alarmIsOnFor = 10
 
+#initiate Bluetooth class
+bluetooth_instance = Bluetooth()
+
 # testing remove for actual Pin value once connected
 testingIncrement = 0
 # testing remove for actual Pin value once connected
 class Pin:
     HIGH = True
-
 
 def runTimingAlarm():
     global beenHighTime
@@ -45,16 +47,22 @@ def runTimingAlarm():
     global timeToSetAlarm
     global testingIncrement
 
-    # testing remove for actual Pin value once connected
-    testData = TestData()
-    Pin.HIGH = testData.flat_onOffVariationsTestS1[testingIncrement]
-    # testing remove for actual Pin value once connected
+   
 
     if Pin.HIGH == True:
         sleep(1)
         # testing
         testingIncrement = testingIncrement + 1
         # testing
+
+        # testing remove for actual Pin value once connected
+        testData = TestData()
+        Pin.HIGH = testData.flat_onOffVariationsTestS1[testingIncrement]
+        # testing remove for actual Pin value once connected
+
+        #set runBlueTooth for creating configuration based on physical button pressed to set configuration
+        bluetooth_instance.runBluetooth()
+        #set runBlueTooth for creating configuration
 
         beenHighTime = beenHighTime + 1
         print(f"{Colors.WARNING} Pin been High for: {beenHighTime}{Colors.ENDC}")
