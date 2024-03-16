@@ -1,0 +1,10 @@
+#to test you need to run 
+
+python sound_alarm.py
+
+comand 'python' is running python3 behind the scence by alias set in .zshrc file 
+
+alias python='python3'
+
+the file exepect to run python3 either set alias or run 'python3 sound_alarm.py'
+

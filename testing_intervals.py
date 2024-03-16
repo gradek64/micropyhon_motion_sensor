@@ -1,6 +1,6 @@
 # pin 1 short
 onOffVariationsTestPin1 = [
-    [True] * 30,
+    [True] * 5,
     [False] * 8,
     [True] * 3,
     [False] * 3,
@@ -15,7 +15,7 @@ onOffVariationsTestPin1 = [
 ]
 # pin 2 long
 shortOnOffVariationsTestPin2 = [
-    [True] * 20,
+    [True] * 5,
     [False] * 3,
     [True] * 10,
     [False] * 3,

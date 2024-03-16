@@ -1,5 +1,5 @@
 from time import sleep
-import testing_intervals
+from testing_intervals import TestData
 
 
 class Colors:
@@ -46,7 +46,8 @@ def runTimingAlarm():
     global testingIncrement
 
     # testing remove for actual Pin value once connected
-    Pin.HIGH = testing_intervals.flat_onOffVariationsTestS1[testingIncrement]
+    testData = TestData()
+    Pin.HIGH = testData.flat_onOffVariationsTestS1[testingIncrement]
     # testing remove for actual Pin value once connected
 
     if Pin.HIGH == True:
