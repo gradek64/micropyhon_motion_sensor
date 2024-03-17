@@ -1,25 +1,34 @@
+
+from readWriteConfig import Config
+
 class Colors:
-    OKBLUE = "\033[94m"
+     OKCYAN = "\033[96m"
 
 class Bluetooth:
     def __init__(self):
+        global config_reader
         self.initiated = False
-        print(f"{Colors.OKBLUE} BLUETOOTH SETTING STARTED")
+        #read and write config
+        config_reader = Config("configuration.txt")
+        #read and write config
+       
     def runBluetooth(self):
         if self.initiated == False:
             self.initiated = True
-            # Open the file in read-write mode
-            with open('configuration.txt', 'r+') as file:
-                # Read the contents of the file
-                content = file.read()
+             # Read the current content of the file
+            current_content = config_reader.read()  
+            # update
+            new_content = current_content + "\nGregi."
+            # Save the modified content back to the file
+            config_reader.write(new_content)
+            print(f"{Colors.OKCYAN} current_content---: {current_content}")
 
-                # Modify the content (for example, add some text)
-                content += "\nThis line is added to the file."
 
-                # Move the file pointer to the beginning
-                file.seek(0)
 
-                # Write the modified content back to the file
-                file.write(content)
-                print(f"{Colors.OKBLUE} CONFIGURATION SET")
+
+
+
+
+
+            
             
